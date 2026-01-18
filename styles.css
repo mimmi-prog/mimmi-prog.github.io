@@ -1,0 +1,87 @@
+body {
+    font-family: "Rethink Sans", sans-serif;
+    display: flex;
+}
+
+.container {
+    margin-left: 20px;
+    max-width: 1200px;
+}
+
+.logo a {
+    font-family: "Rethink Sans", sans-serif;
+    text-decoration: none;
+    font-size: x-large;
+    color: #333;
+    letter-spacing: 2px;
+}
+
+#header-image {
+    width: 107px;
+    height: auto;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #333;
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+
+.main-content {
+    margin-left: 40px;
+    width: 100%;
+}
+
+.events {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.event-dato {
+    font-family: "Spectral", serif;
+}
+
+.event-list {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    max-width: fit-content;
+    margin-left: 50px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+#performativ {
+    width: 300px;
+}
+
+.galleri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.bilde img{
+    width: 300px;
+    height: auto;
+}
+
+.bilde p {
+    width: 200px;
+    color: #666;
+}
