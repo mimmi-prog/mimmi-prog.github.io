@@ -67,6 +67,15 @@ hr {
     width: 100%;
 }
 
+#home-image {
+    position: fixed;
+    top: -660px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
 #performativ {
     width: 300px;
 }
