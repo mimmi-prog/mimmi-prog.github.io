@@ -85,3 +85,33 @@ hr {
     width: 200px;
     color: #666;
 }
+
+.album-list {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.album-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.album-item img {
+    width: 150px;
+}
+
+.album-item img:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.album-artist {
+    font-family: "Spectral", serif;
+    margin-top: -10px;
+}
+
+.song-item img {
+    width: 150px;
+}
