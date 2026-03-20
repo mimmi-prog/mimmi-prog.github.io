@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>miwumo</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="board"></div>
+
+<div class="page">
+
+  <div class="title" id="title">
+
+    <div class="letter-wrap" id="wrap-blog" onclick="toggle('blog', 'wrap-blog')">
+      <span class="letter">m</span>
+      <div class="dropdown">
+        <a>i</a><a>n</a><span class="h-spacer"></span><a>b</a><a>l</a><a>o</a><a>g</a>
+      </div>
+    </div>
+
+    <div class="letter-wrap" id="wrap-interesser" onclick="toggle('interesser', 'wrap-interesser')">
+      <span class="letter">i</span>
+      <div class="dropdown">
+        <a>n</a><a>t</a><a>e</a><a>r</a><a>e</a><a>s</a><a>s</a><a>e</a><a>r</a>
+      </div>
+    </div>
+
+    <span class="plain">w</span>
+
+    <div class="letter-wrap" id="wrap-sang" onclick="toggle('sang', 'wrap-sang')">
+      <span class="letter">u</span>
+      <div class="dropdown">
+        <a>k</a><a>e</a><a>n</a><a>s</a><span class="h-spacer"></span><a>s</a><a>a</a><a>n</a><a>g</a>
+      </div>
+    </div>
+
+    <div class="letter-wrap" id="wrap-venner" onclick="toggle('venner', 'wrap-venner')">
+      <span class="letter">m</span>
+      <div class="dropdown">
+        <a>i</a><a>n</a><a>e</a><span class="h-spacer"></span><a>v</a><a>e</a><a>n</a><a>n</a><a>e</a><a>r</a>
+      </div>
+    </div>
+
+    <div class="letter-wrap" id="wrap-om" onclick="toggle('om', 'wrap-om')">
+      <span class="letter">o</span>
+      <div class="dropdown">
+        <a>m</a><span class="h-spacer"></span><a>m</a><a>e</a><a>g</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel">
+    <div class="section" id="blog"></div>
+    <div class="section" id="interesser"></div>
+    <div class="section" id="sang"></div>
+    <div class="section" id="venner"></div>
+    <div class="section" id="om"></div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
