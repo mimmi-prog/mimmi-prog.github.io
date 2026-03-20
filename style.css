@@ -10,6 +10,12 @@
   --size: clamp(48px, 7vw, 80px);
 }
 
+@media (max-width: 768px) {
+  .board {
+    display: none;
+  }
+}
+
 body {
   background: var(--bg);
   min-height: 100vh;
