@@ -1,4 +1,3 @@
-
 const sections = ['blog', 'interesser', 'sang', 'venner', 'om'];
 
 const wraps = {
@@ -40,6 +39,9 @@ const images = [
   'images/ørnen.jpg',
 ];
 let imageIndex = 0;
+let active = null;
+let startX, startY, origX, origY;
+let highestZ = 10;
 
 function spawnImage() {
   if (imageIndex >= images.length) return;
@@ -49,7 +51,6 @@ function spawnImage() {
   img.classList.add('board-img');
   imageIndex++;
 
-  // tilfeldig posisjon på skjermen
   const x = Math.random() * (window.innerWidth  - 220);
   const y = Math.random() * (window.innerHeight - 220);
 
@@ -60,7 +61,6 @@ function spawnImage() {
 
   document.querySelector('.board').appendChild(img);
 
-  // legg til drag på det nye bildet
   img.addEventListener('mousedown', e => {
     e.preventDefault();
     e.stopPropagation();
@@ -86,50 +86,21 @@ function toggle(id, wrapId) {
   });
 
   if (!isOpen) {
-    spawnImage(); // ← legg til denne linjen
+    spawnImage();
 
     const section = document.getElementById(id);
     const wrap    = document.getElementById(wrapId);
 
     const panelTop = document.querySelector('.panel').getBoundingClientRect().top;
     const wrapTop  = wrap.getBoundingClientRect().top;
-    const offset   = Math.max(0, wrapTop - panelTop + 100);
+    const isMobile = window.innerWidth <= 768;
+    const offset   = Math.max(0, wrapTop - panelTop + (isMobile ? 20 : 100));
 
     section.style.paddingTop = offset + 'px';
     section.classList.add('open');
     wrap.classList.add('active');
   }
 }
-
-// ── DRAG ──
-let active = null;
-let startX, startY, origX, origY;
-let highestZ = 10;
-
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.board-img').forEach((img, i) => {
-    img.style.zIndex = i + 1;
-
-    img.addEventListener('mousedown', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      active = img;
-
-      const rect = img.getBoundingClientRect();
-      origX  = rect.left;
-      origY  = rect.top;
-      startX = e.clientX;
-      startY = e.clientY;
-
-      img.style.position = 'fixed';
-      img.style.left = origX + 'px';
-      img.style.top  = origY + 'px';
-
-      highestZ++;
-      img.style.zIndex = highestZ;
-    });
-  });
-});
 
 window.addEventListener('mousemove', e => {
   if (!active) return;
