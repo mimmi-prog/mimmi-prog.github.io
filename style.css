@@ -11,8 +11,9 @@
 }
 
 @media (max-width: 768px) {
-  .board {
-    display: none;
+  .board-img {
+    opacity: 0.15;
+    pointer-events: none;
   }
 }
 
