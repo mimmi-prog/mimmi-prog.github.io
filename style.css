@@ -64,8 +64,19 @@ body {
   flex-direction: column;
   font-size: var(--size);
   line-height: 1;
-  letter-spacing: -0.02em;
   flex-shrink: 0;
+}
+
+#dropdown-interesser {
+  margin-left: -0.55em;
+}
+
+#dropdown-sang {
+  margin-left: -0.38em;
+}
+
+#dropdown-om {
+  margin-left: -0.5em;
 }
 
 .letter-wrap {
