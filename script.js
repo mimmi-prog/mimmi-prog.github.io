@@ -1,11 +1,12 @@
-const sections = ['blog', 'interesser', 'sang', 'venner', 'om'];
+const sections = ['blog', 'interesser', 'utsagn', 'venner', 'om', 'musikk'];
 
 const wraps = {
   blog:       'wrap-blog',
   interesser: 'wrap-interesser',
-  sang:       'wrap-sang',
+  utsagn:     'wrap-utsagn',
   venner:     'wrap-venner',
-  om:         'wrap-om'
+  om:         'wrap-om',
+  musikk:    'wrap-musikk'
 };
 
 async function loadSections() {
@@ -18,6 +19,11 @@ async function loadSections() {
       console.warn(`Kunne ikke laste seksjon: ${id}`);
     }
   }
+}
+
+/* blog post */
+function openPost(post) {
+  post.classList.toggle('open');
 }
 
 const images = [
@@ -110,6 +116,29 @@ window.addEventListener('mousemove', e => {
 
 window.addEventListener('mouseup', () => {
   active = null;
+});
+
+/* Opacity when hover */
+
+document.querySelectorAll('.letter-wrap').forEach(wrap => {
+  wrap.addEventListener('mouseenter', () => {
+    const activeSection = wrap.id.replace('wrap-', '');
+    sections.forEach(s => {
+      const el = document.getElementById(s);
+      if (s !== activeSection) {
+        el.style.opacity = '0.15';
+        el.style.transition = 'opacity 0.2s ease';
+      } else {
+        el.style.opacity = '1';
+      }
+    });
+  });
+
+  wrap.addEventListener('mouseleave', () => {
+    sections.forEach(s => {
+      document.getElementById(s).style.opacity = '1';
+    });
+  });
 });
 
 loadSections();
