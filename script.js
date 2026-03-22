@@ -19,6 +19,7 @@ async function loadSections() {
       console.warn(`Kunne ikke laste seksjon: ${id}`);
     }
   }
+  updateUkensUtsagn();
 }
 
 /* blog post */
@@ -27,14 +28,14 @@ function openPost(post) {
 }
 
 const images = [
-  'images/17 mai.jpg',
+  'images/meg.jpg',
   'images/boden.jpg',
   'images/bybb.jpg',
   'images/chillern dudes.jpg',
   'images/erv.jpg',
   'images/karni hytte.jpg',
   'images/klatring.jpg',
-  'images/meg.jpg',
+  'images/17 mai.jpg',
   'images/otto og astar.jpg',
   'images/otto og kristian.jpg',
   'images/pappa.jpg',
@@ -57,7 +58,7 @@ function spawnImage() {
   img.classList.add('board-img');
   imageIndex++;
 
-  const x = Math.random() * (window.innerWidth  - 220);
+  const x = window.innerWidth * 0.35 + Math.random() * (window.innerWidth * 0.65 - 220);
   const y = Math.random() * (window.innerHeight - 220);
 
   img.style.position = 'fixed';
@@ -91,6 +92,10 @@ function toggle(id, wrapId) {
     document.getElementById(wraps[s]).classList.remove('active');
   });
 
+  document.querySelectorAll('.board-img').forEach(img => {
+    img.style.width = '200px';
+  });
+
   if (!isOpen) {
     spawnImage();
 
@@ -104,6 +109,15 @@ function toggle(id, wrapId) {
 
     section.style.paddingTop = offset + 'px';
     section.classList.add('open');
+
+    document.querySelectorAll('.board-img').forEach(img => {
+      if (id === 'om') {
+        img.style.width = img.src.includes('meg.jpg') ? '300px' : '200px';
+        img.style.transition = 'width 0.3s ease';
+      } else {
+        img.style.width = '200px';
+      }
+    });
     wrap.classList.add('active');
   }
 }
@@ -141,4 +155,29 @@ document.querySelectorAll('.letter-wrap').forEach(wrap => {
   });
 });
 
+function getWeekNumber() {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 3 - (d.getDay() + 6) % 7);
+  const week1 = new Date(d.getFullYear(), 0, 4);
+  return 1 + Math.round(((d - week1) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+}
+
+function updateUkensUtsagn() {
+  const utsagn = [
+    "Spiser mig selv til morgenmad",
+    "Rotta og kniven er ikke hjemme så jeg føler savn, alle her er sinte på A1 han drar til københavn.",
+    "Våkna opp i dag tidlig og var litt down as skal jeg være ærlig, jeg gikk på en...jeg gikk på en [TSSSSSTT] med en [TSSSST], også gikk jeg inn på badet og så meg selv i speilet og var sånn; Wooof. Hvem er han karen der?! Og så kom jeg på åh faen sant det det er meg LETS GO",
+    "Du klarer det!",
+    "Aldri gi opp, med mindre du absolutt må",
+    "Det er alltid lys inni tunnelen også",
+    "Livet er enten et dristig eventyr, eller ingenting i det hele tatt.",
+  ];
+
+  const index = getWeekNumber() % utsagn.length;
+  const el = document.querySelector('#utsagn p:last-child');
+  if (el) el.textContent = utsagn[index];
+}
+
 loadSections();
+setInterval(updateUkensUtsagn, 10000);

@@ -260,7 +260,7 @@ h2 {
   border-top: 1px solid var(--border);
 }
 
-/* ── SANG ── */
+/* ── Musikk ── */
 .musik-divider {
   border-top: 1px solid var(--border);
   margin: 28px 0;
@@ -340,7 +340,14 @@ h2 {
   font-style: italic;
 }
 
-
+/* ── Ukens utsagn ── */
+.utsagn {
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin: 20px 0;
+  max-width: 380px;
+}
 
 /* ── VENNER ── */
 .friend {
