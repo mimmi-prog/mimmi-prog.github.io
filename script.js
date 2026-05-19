@@ -22,14 +22,9 @@ const IMAGES = [
 ];
 
 const UTSAGN = [
-  "Spiser mig selv til morgenmad",
-  "Rotta og kniven er ikke hjemme så jeg føler savn, alle her er sinte på A1 han drar til københavn.",
-  "Våkna opp i dag tidlig og var litt down as skal jeg være ærlig, jeg gikk på en...jeg gikk på en [TSSSSSTT] med en [TSSSST], også gikk jeg inn på badet og så meg selv i speilet og var sånn; Wooof. Hvem er han karen der?! Og så kom jeg på åh faen sant det det er meg LETS GO",
-  "Du klarer det!",
-  "Aldri gi opp, med mindre du absolutt må",
-  "Det er alltid lys inni tunnelen også",
-  "Livet er enten et dristig eventyr, eller ingenting i det hele tatt.",
   "Morgens Voll-Erektion, was schon lange nicht mehr vorkam - Thomas Mann",
+  "Hvorfor sitte inne når alt håp er ute?",
+  "Det er alltid lys inni tunnelen også!"
 ];
 
 
@@ -49,12 +44,12 @@ let highestZ = 10;
 
 // ─── Innlasting ──────────────────────────────────────────────────────────────
 
-async function loadSections() {
-  await Promise.all(
-    SECTIONS.map(id => loadSection(id))
-  );
-  updateUkensUtsagn();
-}
+// async function loadSections() {
+//   await Promise.all(
+//     SECTIONS.map(id => loadSection(id))
+//   );
+//   updateUkensUtsagn();
+// }
 
 async function loadSection(id) {
   try {
@@ -64,6 +59,22 @@ async function loadSection(id) {
   } catch {
     console.warn(`Kunne ikke laste seksjon: ${id}`);
   }
+}
+
+async function loadSections() {
+  await Promise.all(
+    SECTIONS.map(id => loadSection(id))
+  );
+  updateUkensUtsagn();
+  setupAlbumListeners(); // <-- Add this here
+}
+
+function setupAlbumListeners() {
+  // Find ALL album cover images across both music and blog sections
+  document.querySelectorAll('.album-cover img').forEach(img => {
+    img.classList.add('album-dragged'); 
+    img.addEventListener('mousedown', onAlbumMouseDown);
+  });
 }
 
 
@@ -84,7 +95,8 @@ function closeAllSections() {
     document.getElementById(`wrap-${s}`).classList.remove('active');
   });
 
-  document.querySelectorAll('.board-img').forEach(img => {
+  // Target ONLY board images that are NOT album covers
+  document.querySelectorAll('.board-img:not(.album-dragged)').forEach(img => {
     img.style.width = '200px';
   });
 }
@@ -104,10 +116,12 @@ function openSection(id) {
 
   spawnImage();
   updateImageSizes(id);
+
 }
 
 function updateImageSizes(activeId) {
-  document.querySelectorAll('.board-img').forEach(img => {
+  // Target ONLY board images that are NOT album covers
+  document.querySelectorAll('.board-img:not(.album-dragged)').forEach(img => {
     const isMegJpg = img.src.includes('meg.jpg');
     img.style.width = (activeId === 'om' && isMegJpg) ? '300px' : '200px';
     img.style.transition = 'width 0.3s ease';
@@ -145,6 +159,8 @@ function onImageMouseDown(e) {
   drag.startY = e.clientY;
 
   drag.active.style.zIndex = ++highestZ;
+
+  drag.active.classList.add('has-been-dragged');
 }
 
 
@@ -159,6 +175,33 @@ window.addEventListener('mousemove', e => {
 window.addEventListener('mouseup', () => {
   drag.active = null;
 });
+
+
+// ─── Album cover drag ─────────────────────────────────────────────────────────
+
+function onAlbumMouseDown(e) {
+  const img = e.currentTarget;
+
+  // If it hasn't been detached from the blog/music grid yet, do it now!
+  if (!img.dataset.reparented) {
+    const rect = img.getBoundingClientRect();
+    
+    img.style.width    = rect.width + 'px';
+    img.style.height   = rect.height + 'px';
+    img.style.position = 'fixed';
+    img.style.margin   = '0';
+    img.style.left     = rect.left + 'px';
+    img.style.top      = rect.top + 'px';
+    img.style.zIndex   = ++highestZ;
+    img.dataset.reparented = 'true';
+
+    img.classList.add('board-img', 'has-been-dragged');
+    document.querySelector('.board').appendChild(img);
+  }
+
+  // Now trigger your standard dragging system
+  onImageMouseDown(e);
+}
 
 
 // ─── Hover-opacity ───────────────────────────────────────────────────────────

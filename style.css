@@ -286,6 +286,14 @@ h2 {
   margin-bottom: 6px;
 }
 
+/* If the musikk tab is NOT active, hide any album covers that haven't been dragged yet */
+/* Hide album covers on other tabs ONLY if they have been detached and dragged */
+/* Hide album covers ONLY if they haven't been dragged yet and their section is closed */
+body:not(:has(#musikk.open)) #musikk .album-dragged:not(.has-been-dragged),
+body:not(:has(#blog.open)) #blog .album-dragged:not(.has-been-dragged) {
+  display: none !important;
+}
+
 .album-cover img {
   width: 100%;
   height: 100%;
